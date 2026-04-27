@@ -9,7 +9,7 @@ This project predicts the **HOMO-LUMO gap** (target index 4, units: eV) of small
 | Model | Description | Test MAE (eV) |
 |---|---|---|
 | **GCN** (Baseline) | Graph Convolutional Network — bond topology only | 0.1532 |
-| **SchNet** (Variant 1) | Continuous-filter CNN — 3D interatomic distances | 0.0814 |
+| **SchNet** (Variant) | Continuous-filter CNN — 3D interatomic distances | 0.0814 |
 
 The core hypothesis: **3D geometry encodes spatial orbital overlap information that topology-only GCN cannot capture**, yielding a substantial improvement in MAE.
 
