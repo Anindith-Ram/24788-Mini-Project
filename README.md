@@ -20,8 +20,8 @@ The core hypothesis: **3D geometry encodes spatial orbital overlap information t
 ```
 24788-miniproject/
 ├── notebooks/
-│   ├── train_gcn.ipynb          # GCN training pipeline (Colab-ready)
-│   ├── train_schnet.ipynb       # SchNet training pipeline (Colab-ready)
+│   ├── train_gcn.ipynb           # GCN training pipeline (Colab-ready)
+│   ├── train_schnet.ipynb        # SchNet training pipeline (Colab-ready)
 │   └── t-sne_visualization.ipynb # t-SNE embedding analysis
 ├── figures/
 │   ├── gcn_val_loss_plot.png
