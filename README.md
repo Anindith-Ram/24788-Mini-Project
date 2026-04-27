@@ -98,12 +98,6 @@ test_dataset  = dataset[perm[120000:130000]]
 |---|---|
 | ![GCN Pred vs True](figures/gcn_pred_vs_true.png) | ![SchNet Pred vs True](figures/schnet_pred_vs_true.png) |
 
-### Validation Loss Curves
-
-| GCN | SchNet |
-|---|---|
-| ![GCN Loss](figures/gcn_val_loss_plot.png) | ![SchNet Loss](figures/schnet_val_loss_plot.png) |
-
 ### t-SNE Embeddings
 
 | GCN Embeddings | SchNet Embeddings |
