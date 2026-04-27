@@ -106,8 +106,6 @@ test_dataset  = dataset[perm[120000:130000]]
 
 ### t-SNE Embeddings
 
-![t-SNE Comparison](figures/tsne_comparison.png)
-
 | GCN Embeddings | SchNet Embeddings |
 |---|---|
 | ![GCN t-SNE](figures/tsne_gcn.png) | ![SchNet t-SNE](figures/tsne_schnet.png) |
