@@ -2,7 +2,7 @@
 
 **Course:** 24-788 Introduction to Deep Learning, Spring 2026 — Carnegie Mellon University  
 **Student:** Anindith Ram  
-**Scope:** Solo + Two-Person Bonus Tier (Baseline + 2 Contributions)
+**Scope:** Solo + One-Person Bonus Tier (Baseline + 1 Contribution)
 
 ---
 
