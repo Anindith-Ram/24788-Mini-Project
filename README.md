@@ -45,13 +45,13 @@ The core hypothesis: **3D geometry encodes spatial orbital overlap information t
 - **Architecture:** InputProj → [GCNConv → BN → ReLU → Dropout] × 4 → GlobalMeanPool → MLP → scalar
 - Uses **bond connectivity only** — no 3D coordinates
 
-### Variant 1: SchNet
+### Variant: SchNet
 - **Paper:** Schütt et al., "SchNet: A continuous-filter convolutional neural network for modeling quantum interactions", NeurIPS 2017 ([arXiv:1706.08566](https://arxiv.org/abs/1706.08566))
 - **Inputs:** Atomic numbers `data.z` + 3D coordinates `data.pos`
 - **Architecture:** AtomEmbed → Gaussian RBF distance expansion → [ContinuousFilterConv] × 6 → SumPool → MLP → scalar
 - Builds its own radius graph (cutoff ~10 Å) — **does not use bond topology**
 
-### Contribution 2: t-SNE Embedding Visualization
+### Contribution: t-SNE Embedding Visualization
 - **t-SNE visualization:** Extract graph-level embeddings (pre-MLP) from both GCN and SchNet on the test set, project to 2D via t-SNE, and color by true HOMO-LUMO gap value
 - Reveals whether SchNet learns a more geometrically structured latent space compared to the topology-only GCN
 
