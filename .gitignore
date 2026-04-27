@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Data (too large for GitHub)
+data/
+
+# Model checkpoints (too large — link from Drive instead)
+checkpoints/
+
+# Wandb local files
+wandb/
+
+# Misc
+*.log
