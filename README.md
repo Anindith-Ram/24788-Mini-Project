@@ -1,9 +1,5 @@
 # 24-788 Mini-Project: QM9 HOMO-LUMO Gap Prediction
 
-**Course:** 24-788 Introduction to Deep Learning, Spring 2026 — Carnegie Mellon University  
-**Student:** Anindith Ram  
-**Scope:** Solo + One-Person Bonus Tier (Baseline + 1 Contribution)
-
 ---
 
 ## Overview
@@ -12,11 +8,10 @@ This project predicts the **HOMO-LUMO gap** (target index 4, units: eV) of small
 
 | Model | Description | Test MAE (eV) |
 |---|---|---|
-| **GCN** (Baseline) | Graph Convolutional Network — bond topology only | ~0.25 |
-| **SchNet** (Variant 1) | Continuous-filter CNN — 3D interatomic distances | ~0.06 |
-| **SchNet (shuffled)** | SchNet with randomized 3D coordinates (ablation) | ~0.22 |
+| **GCN** (Baseline) | Graph Convolutional Network — bond topology only | 0.1532 |
+| **SchNet** (Variant 1) | Continuous-filter CNN — 3D interatomic distances | 0.0814 |
 
-The core hypothesis: **3D geometry encodes spatial orbital overlap information that topology-only GCN cannot capture**, yielding a ~4x improvement in MAE.
+The core hypothesis: **3D geometry encodes spatial orbital overlap information that topology-only GCN cannot capture**, yielding a substantial improvement in MAE.
 
 ---
 
@@ -44,7 +39,8 @@ The core hypothesis: **3D geometry encodes spatial orbital overlap information t
 ## Models
 
 ### Baseline: Graph Convolutional Network (GCN)
-- **Paper:** Kipf & Welling, "Semi-Supervised Classification with Graph Convolutional Networks", ICLR 2017
+- **Paper:** Kipf & Welling, "Semi-Supervised Classification with Graph Convolutional Networks", ICLR 2016 ([arXiv:1609.02907
+](https://arxiv.org/abs/1609.02907))
 - **Inputs:** Node features `data.x` [num_atoms, 11] + bond topology `data.edge_index`
 - **Architecture:** InputProj → [GCNConv → BN → ReLU → Dropout] × 4 → GlobalMeanPool → MLP → scalar
 - Uses **bond connectivity only** — no 3D coordinates
@@ -55,10 +51,9 @@ The core hypothesis: **3D geometry encodes spatial orbital overlap information t
 - **Architecture:** AtomEmbed → Gaussian RBF distance expansion → [ContinuousFilterConv] × 6 → SumPool → MLP → scalar
 - Builds its own radius graph (cutoff ~10 Å) — **does not use bond topology**
 
-### Contribution 2: 3D Geometry Ablation Analysis
-- **Shuffled-coords SchNet:** Replace `data.pos` with random coordinates to isolate the effect of true 3D geometry
-- **Learning curves:** Both models trained at {10k, 25k, 50k, 75k, 110k} samples
-- **t-SNE visualization:** Graph-level embeddings colored by true HOMO-LUMO gap
+### Contribution 2: t-SNE Embedding Visualization
+- **t-SNE visualization:** Extract graph-level embeddings (pre-MLP) from both GCN and SchNet on the test set, project to 2D via t-SNE, and color by true HOMO-LUMO gap value
+- Reveals whether SchNet learns a more geometrically structured latent space compared to the topology-only GCN
 
 ---
 
@@ -126,29 +121,11 @@ The notebooks are designed for **Google Colab Pro** (T4 or L4 GPU). To run:
 1. Open the notebook in Colab
 2. Mount Google Drive for checkpoint persistence
 3. Install dependencies (first cell in each notebook)
-4. Set your W&B API key in Colab Secrets as `WANDB_API_KEY`
-
----
-
-## Key Design Decisions
-
-- **MAE always reported in eV** (de-normalized), never in normalized units
-- **GCN never uses `data.pos`** — topology-only for a fair comparison
-- **SchNet never uses `data.edge_index`** — builds its own edges via `radius_graph`
-- All random seeds set to 42 for reproducibility
-- Checkpoints saved with `target_mean` and `target_std` for correct de-normalization
+4. Set your W&B API key as `WANDB_API_KEY` in .env file
 
 ---
 
 ## References
 
-1. Kipf & Welling (2017). Semi-Supervised Classification with Graph Convolutional Networks. *ICLR 2017*.
+1. Kipf & Welling (2016). Semi-Supervised Classification with Graph Convolutional Networks. *ICLR 2016*.
 2. Schütt et al. (2017). SchNet: A continuous-filter convolutional neural network for modeling quantum interactions. *NeurIPS 2017*.
-3. Ramakrishnan et al. (2014). Quantum chemistry structures and properties of 134 kilo molecules. *Scientific Data*.
-4. Wu et al. (2018). MoleculeNet: A Benchmark for Molecular Machine Learning. *Chemical Science*.
-
----
-
-## Collaboration Statement
-
-This is a solo project. AI tools (Claude) were used for code scaffolding, debugging, and writing assistance.
